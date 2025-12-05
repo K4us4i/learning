@@ -2,19 +2,103 @@
 <html>
 <head>
     <title>Mood Checker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 350px;
+            box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        input[type="text"] {
+            width: 90%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        button {
+            width: 95%;
+            padding: 10px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #45a049;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .positive {
+            color: green;
+            background: #e9fbe9;
+        }
+
+        .negative {
+            color: red;
+            background: #fdeaea;
+        }
+
+        .neutral {
+            color: #555;
+            background: #eeeeee;
+        }
+    </style>
 </head>
 <body>
-    <h1>Mood Checker</h1>
 
-    <form method="POST">
-        <label>How are you feeling today?</label><br>
-        <input type="text" name="mood">
-        <button type="submit">Submit</button>
-    </form>
+    <div class="container">
+        <h1>Mood Checker</h1>
 
-    {% if joke %}
-        <h3>API Response:</h3>
-        <p>{{ joke }}</p>
-    {% endif %}
+        <form method="POST">
+            <input type="text" name="mood" placeholder="Type your mood..." required>
+            <button type="submit">Analyze Mood</button>
+        </form>
+
+        {% if result %}
+            <div class="result 
+                {% if result == 'positive' %} positive 
+                {% elif result == 'negative' %} negative 
+                {% else %} neutral 
+                {% endif %}
+            ">
+                {% if result == "positive" %}
+                    😊 You are in a positive mood!
+                {% elif result == "negative" %}
+                    💛 You seem sad. Stay strong!
+                {% else %}
+                    🙂 Your mood is neutral.
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+
 </body>
 </html>

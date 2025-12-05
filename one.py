@@ -5,23 +5,24 @@ app = Flask(__name__)
 
 @app.route("/", methods=["GET", "POST"])
 def home():
-    joke = None
+    result = None
 
     if request.method == "POST":
-        # User mood input
         mood_text = request.form.get("mood")
 
-        # Call API (simple joke API for now)
-        url = "https://v2.jokeapi.dev/joke/Any"
-        response = requests.get(url)
+        # Sentiment API URL
+        url = "https://sentim-api.onrender.com/api/v1/"
+
+        headers = {"Content-Type": "application/json"}
+        payload = {"text": mood_text}
+
+        response = requests.post(url, json=payload, headers=headers)
         data = response.json()
 
-        if data["type"] == "single":
-            joke = data["joke"]
-        else:
-            joke = data["setup"] + " ..." + data["delivery"]
+        # Sentiment result: positive / negative / neutral
+        result = data["result"]["type"]
 
-    return render_template("index.html", joke=joke)
+    return render_template("index.html", result=result)
 
 if __name__ == "__main__":
     app.run(debug=True)

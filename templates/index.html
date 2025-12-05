@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mood Checker</title>
+</head>
+<body>
+    <h1>Mood Checker</h1>
+
+    <form method="POST">
+        <label>How are you feeling today?</label><br>
+        <input type="text" name="mood">
+        <button type="submit">Submit</button>
+    </form>
+
+    {% if joke %}
+        <h3>API Response:</h3>
+        <p>{{ joke }}</p>
+    {% endif %}
+</body>
+</html>
